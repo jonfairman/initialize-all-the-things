@@ -8,74 +8,80 @@ brew tap caskroom/cask
 # Homebrew Installs
 # ------------------------------------------------------------------------------
 brew install \
-dockutil \
-ffmpeg \
-git \
-mas \
-mackup \
-switchaudio-osx \
-z
+    dockutil \
+    ffmpeg \
+    git \
+    mas \
+    mackup \
+    switchaudio-osx \
+    z
 
 # Cask Installs
 # ------------------------------------------------------------------------------
 brew cask install \
-1password \
-adobe-creative-cloud \
-adobe-illustrator-cc \
-adobe-photoshop-cc \
-alfred \
-atom \
-audacity \
-audio-hijack \
-bartender \
-beamer \
-blue-jeans-launcher \
-box-sync \
-cakebrew \
-cheatsheet \
-chronosync \
-crashplan \
-cyberduck \
-daisydisk \
-data-rescue \
-dropbox \
-fantastical \
-firefox \
-flux \
-github-desktop \
-google-chrome \
-google-drive \
-gpgtools \
-handbrake \
-handbrakecli \
-hazel \
-hipchat \
-imageoptim \
-iterm2 \
-itunes-volume-control \
-karabiner \
-knox \
-logitech-control-center \
-logitech-unifying \
-macid \
-mactracker \
-macvim \
-markdown-service-tools \
-moom \
-netspot \
-omnigraffle \
-parallels-desktop \
-pixel-check \
-postman \
-qlmarkdown \
-screens-connect \
-slack \
-spotify \
-steam \
-things \
-tunnelblick \
-vlc \
-vmware-fusion \
+    1password \
+    adobe-creative-cloud \
+    adobe-illustrator-cc \
+    adobe-photoshop-cc \
+    alfred \
+    atom \
+    audacity \
+    audio-hijack \
+    bartender \
+    beamer \
+    blue-jeans-launcher \
+    box-sync \
+    cakebrew \
+    cheatsheet \
+    chronosync \
+    crashplan \
+    cyberduck \
+    daisydisk \
+    data-rescue \
+    dropbox \
+    fantastical \
+    firefox \
+    flux \
+    github-desktop \
+    gitup \
+    google-chrome \
+    google-drive \
+    gpgtools \
+    handbrake \
+    handbrakecli \
+    hazel \
+    hipchat \
+    imageoptim \
+    iterm2 \
+    itunes-volume-control \
+    karabiner \
+    knox \
+    logitech-control-center \
+    logitech-unifying \
+    macid \
+    mactracker \
+    macvim \
+    markdown-service-tools \
+    moom \
+    netspot \
+    omnigraffle \
+    parallels-desktop \
+    pixel-check \
+    postman \
+    qlcolorcode \
+    qlimagesize \
+    qlmarkdown \
+    qlstephen \
+    quicklook-csv \
+    quicklook-json \
+    screens-connect \
+    slack \
+    spotify \
+    steam \
+    things \
+    tunnelblick \
+    vlc \
+    vmware-fusion \
 
 # Cleans up install files
 # ------------------------------------------------------------------------------
@@ -132,11 +138,9 @@ brew cleanup
 # autocad lt 2016
 # blackmagic atem switchers
 # blackmagic converters
-# controllermate
 # lilyview
 # microsoft office
 # p-touch editor
-# paprika
 # pdfpenpro
 # photomatix pro 5
 # quickres
@@ -146,17 +150,20 @@ brew cleanup
 
 # Download iTerm 'Solarized-Dark-Higher-Contrast' color theme
 # ------------------------------------------------------------------------------
+echo "Downloading iTerm colors"
 curl https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Solarized%20Dark%20Higher%20Contrast.itermcolors > ~/Downloads/Solarized-Dark-Higher-Contrast.itermcolors
 open ~/Downloads/Solarized-Dark-Higher-Contrast.itermcolors -a iTerm.app
 
 # Download Inconsolata-dz font for iTerm
 # ------------------------------------------------------------------------------
+echo "Downloading iTerm font"
 curl http://media.nodnod.net/Inconsolata-dz.otf.zip > ~/Downloads/Inconsolata-dz.otf.zip
 open ~/Downloads/Inconsolata-dz.otf.zip
 open ~/Downloads/Inconsolata-dz.otf
 
-# Manage the dock
+# Configure the dock
 # ------------------------------------------------------------------------------
+echo "Configuring the Dock"
 dockutil --remove all
 dockutil --add /Applications/Airmail\ 3.app
 dockutil --add /Applications/Things.app
