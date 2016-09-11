@@ -1,0 +1,10 @@
+port() {
+    case $1 in
+        'install'|'uninstall'|'sync'|'upgrade'|'edit'|'selfupdate'|'load'|'unload')
+            sudo nice -20 /usr/bin/env port $*
+        ;;
+        *)
+            /usr/bin/env port $*
+        ;;
+    esac
+}

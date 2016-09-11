@@ -1,0 +1,6 @@
+--type-set=puppet=.pp
+--color
+--color-match=black on_green
+--color-lineno=blue
+--ignore-case
+

@@ -1,0 +1,64 @@
+#!/usr/bin/env ruby
+
+require 'rake'
+
+git_bundles = [
+# File Browsing:
+  "git://github.com/kien/ctrlp.vim.git",
+  # "git://github.com/scrooloose/nerdtree.git",
+  # "git://github.com/mileszs/ack.vim.git",
+  # "git://git.wincent.com/command-t.git",
+  "git://github.com/clones/vim-fuzzyfinder.git",
+  "git://github.com/vim-scripts/L9.git",
+# Enhanced Editing:
+  #"git://github.com/tsaleh/vim-tcomment.git",
+  #"git://github.com/tpope/vim-repeat.git",
+  "git://github.com/tpope/vim-fugitive.git",
+  "git://github.com/tpope/vim-endwise.git",
+  "git://github.com/tpope/vim-surround.git",
+  #"git://github.com/Raimondi/delimitMate.git",
+  "git://github.com/msanders/snipmate.vim.git",
+  #"git://github.com/godlygeek/tabular.git", # <-- needed for => alignment in puppet
+  "git://github.com/tsaleh/vim-align.git",
+# Syntax and languages:
+  #"git://github.com/scrooloose/syntastic.git",
+  "git://github.com/vim-ruby/vim-ruby.git",
+  #"git://github.com/vim-scripts/Rainbow-Parenthesis.git",
+  "git://github.com/tpope/vim-markdown.git",
+  "git://github.com/tpope/vim-git.git",
+  #"git://github.com/tpope/vim-rails.git",
+  #"git://github.com/puppetlabs/puppet-syntax-vim.git",
+  "git://github.com/rodjek/vim-puppet.git",
+# Utility:
+  "git://github.com/vim-scripts/gnupg.vim.git",
+  "git://github.com/Lokaltog/vim-powerline.git",
+# Color
+  "git://github.com/tomasr/molokai.git",
+  "git://github.com/wgibbs/vim-irblack.git",
+  "git://github.com/cschlueter/vim-wombat.git",
+]
+
+vim_org_scripts = [
+#  ["IndexedSearch", "7062",  "plugin"],
+#  ["gist",          "12732", "plugin"],
+#  ["jquery",        "12107", "syntax"],
+]
+
+desc "Clone those that don't exist, update those that do."
+task :sync do
+
+  git_bundles.each do |url|
+    dir = url.split('/').last.split('.git').first.chomp
+    dest = "bundle/#{dir}"
+    if File.exists?(dest)
+      puts "Updating #{dest} from #{url} ..."
+      `(cd #{dest}; git pull)`
+    end
+    unless File.exist?(dest)
+      puts "Cloning #{url} into #{dest} ..."
+      `git clone #{url} #{dest}`
+    end
+  end
+
+end
+

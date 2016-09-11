@@ -1,0 +1,334 @@
+" .vimrc
+
+call pathogen#infect()    " Use Pathogen for plugins
+
+" Enable filetype plugin
+filetype indent on
+filetype plugin on
+syntax on
+
+"
+" General
+set encoding=utf8
+set nocompatible
+set t_Co=256
+set background=dark
+colorscheme solarized
+
+"
+" Gui Options
+if has("gui")
+  set guifont=Source\ Code\ Pro:h14
+  set gfn=Source\ Code\ Pro:h14
+  set guioptions-=m  "remove menu bar
+  set guioptions-=T  "remove toolbar
+  set guioptions-=r  "remove right-hand scroll bar
+  set guioptions-=l  "remove left-hand scroll bar
+  set guioptions-=R  "remove right-hand scroll bar if there is a vertical split
+  set guioptions-=L  "remove left-hand scroll bar if there is a vertical split
+else
+  " set mousehide
+  " set mouse=a
+  " set ttymouse=xterm2
+endif
+
+"
+" Text Format
+set ai
+set si
+set wrap
+set autoread
+set softtabstop=2
+set shiftwidth=2
+set shiftround             " round > and < to nearest shiftwitdh
+set expandtab              " expand tabs to spaces
+"set nosmarttab                  " fuck tabs
+ set smarttab
+" set formatoptions+=n       " support for numbered/bullet lists
+" set textwidth=80              " wrap at 80 chars by default
+set virtualedit=block           " allow virtual edit in visual block ..
+set tabstop=2
+
+"
+" UI
+set backspace=eol,start,indent
+set cursorline
+set ruler                  " show the cursor position all the time
+set noshowcmd              " don't display incomplete commands
+"set redraw
+set number                 " line numbers
+set rnu                    " use relative numbering
+set wildmenu               " turn on wild menu
+set wildmode=list:longest,full
+" set ch=2                   " command line height
+set whichwrap+=<,>,h,l,[,] " backspace and cursor keys wrap to
+set shortmess=filtIoOA     " shorten messages
+set report=0               " tell us about changes
+set nostartofline          " don't jump to the start of line when scrolling
+set showmode
+set scrolloff=3
+"set ttyfast
+"set showcmd                " Show (partial) command in status line.
+set nofoldenable
+"set report=0               " report when > 0 lines changed by command
+set completeopt=longest,menuone
+
+setlocal comments-=:#
+set hidden              " Enable 'hidden' buffers
+
+"
+" Backups
+set directory=~/.vim/swp        " keep swp files under ~/.vim/swap
+
+"
+" Searching
+set hlsearch               " highlight searches
+set incsearch              " do incremental searching
+set ignorecase             " ignore case when searching
+set smartcase              " ... unless ther's a cApItOl"
+
+"
+"  Highlight
+highlight Comment         ctermfg=DarkGrey guifg=#444444
+highlight StatusLineNC    ctermfg=Black    ctermbg=DarkGrey cterm=bold
+highlight StatusLine      ctermbg=Black    ctermfg=LightGrey
+highlight SpecialKey      ctermfg=DarkGray ctermbg=Black
+
+"
+" Highlight Trailing Whitespace
+set list
+set listchars=tab:»·,trail:·
+"set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+"set showbreak=↪
+
+"
+" Visual Cues
+set mat=2
+set showmatch
+set laststatus=2
+set visualbell
+
+
+" let g:git_branch_status_head_current = 1
+" let g:git_branch_status_ignore_remotes = 1
+" let g:git_branch_status_text = ''
+" let g:git_branch_status_nogit = ''
+
+"let g:syntastic_enable_signs=1
+"let g:syntastic_auto_loc_list=1
+"let g:syntastic_puppet_lint_disable=1
+"let g:syntastic_auto_jump=1
+"let g:syntastic_loc_list_height=5
+
+autocmd FileType gitcommit DiffGitCached | wincmd p
+
+" Suffixes that get lower priority when doing tab completion for filenames.
+" These are files we are not likely to want to edit or read.
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+
+"
+" Mappings
+
+" Set the leader
+let mapleader = ';'
+
+
+noremap <Leader>s :update<CR>
+noremap <Leader>v :vsplit<CR>
+noremap <Leader>c :close<CR>
+noremap <Leader>e :Explore<CR>
+noremap <Leader>p :CtrlP<CR>
+noremap <Leader>b :CtrlPBuffer<CR>
+noremap <Leader>t :CtrlPBufTag<CR>
+
+" Date/Time Stamp
+map <leader>t a<c-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><Esc>
+
+" Clear search highlights
+noremap <silent><leader>/ :nohls<CR>
+
+" select all
+"map <leader>a ggVG
+
+" Disable Ruler
+nnoremap <F7> :set nonumber!<CR>
+
+" reflow paragraph with Q in normal and visual mode
+nnoremap Q gqap
+vnoremap Q gq
+
+" Make Y behave like other capitals
+map Y y$
+
+" sane movement with wrap turned on
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+
+" Disable arrow keys for hjkl training
+"inoremap  <Up>     <NOP>
+"inoremap  <Down>   <NOP>
+"inoremap  <Left>   <NOP>
+"inoremap  <Right>  <NOP>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
+
+" Reselect visual block after indent/outdent
+vnoremap < <gv
+vnoremap > >gv
+
+" Easy split navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Better Command line Editing
+"cnoremap <C-j> <t_kd>
+"cnoremap <C-k> <t_ku>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+" Ctrl-P
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+let g:ctrlp_working_path_mode = 'ra'
+
+" Tabular
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap \= :Tabularize /=<CR>
+  vmap \= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
+
+vnoremap <Leader>> :Align =><CR>
+vnoremap <Leader>= :Align =<CR>
+
+"---------------------------------------------------
+"----- various encryption and decryption stuff -----
+
+
+"---------------------------------------------------
+
+"----- gnupg encryption and decryption
+"---- encrypt and sign the message then armor it too
+ map <leader>e :%!/bin/sh -c 'gpg -se -a 2>/dev/tty'
+"---- just encrypt and armor the message
+ map <leader>E :%!/bin/sh -c 'gpg -e -a 2>/dev/tty'
+"---- decrypt
+ map <leader>d :/^-----BEG/,/^-----END/!/bin/sh -c 'gpg -d 2>/dev/tty'
+"----- sign
+ map <leader>s :,$! /bin/sh -c 'gpg --clearsign 2>/dev/tty'
+
+"gundo
+nnoremap <F5> :GundoToggle<CR>
+let g:gundo_width = 60
+let g:gundo_preview_height = 40
+let g:gundo_right = 1
+
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+"
+" Disable autocompletion popup.
+let g:AutoComplPop_NotEnableAtStartup = 1
+
+"----- viewoutput configuration
+let g:viewoutput_newbuffer="bot 5new"
+
+map <C-c> <Plug>Traditionalj
+
+"
+" Make JSON readable.
+map <leader>j :%!perl -MJSON -e 'local $/; my $j =JSON->new(); print $j->pretty()->encode($j->decode(<>));'<CR>
+
+
+"
+" Printing Options
+set printoptions=header:2,syntax:a,number:y,wrap:y,duplex:long,collate:y,jobsplit:y,paper:letter
+
+" ---------------------------------------------------------------------------
+"  Strip all trailing whitespace in file
+" ---------------------------------------------------------------------------
+function! StripWhitespace ()
+    exec ':%s/ \+$//gc'
+endfunction
+map ,s :call StripWhitespace ()<CR>
+
+" ---------------------------------------------------------------------------
+"  Type specific things
+" ---------------------------------------------------------------------------
+au BufRead,BufNewFile *.md       set wrap linebreak spell filetype=markdown
+au BufRead,BufNewFile *.markdown set wrap linebreak spell filetype=markdown
+au BufRead,BufNewFile *pf.conf*  set filetype=pf
+
+"
+" Tabs
+"nnoremap <silent><CSI>] :tabnext<CR>
+"nnoremap <silent><CSI>[ :tabprevious<CR>
+"nnoremap <silent><S-n> :tabnext<CR>
+"nnoremap <silent><S-p> :tabprevious<CR>
+nnoremap <C-l> :tabnext<CR>
+nnoremap <C-H> :tabprevious<CR>
+nnoremap <C-t> :tabnew<CR>
+nnoremap <C-k> :tabclose<CR>
+
+
+" ---------------------------------------------------------------------------
+"  FuzzyFinder
+" ---------------------------------------------------------------------------
+
+if v:version >= 703
+  noremap <Leader>f :FufFileWithCurrentBufferDir<CR>
+  noremap <Leader>F :FufFile<CR>
+  noremap <Leader>v :FufCoverageFile<CR>
+  noremap <Leader>b :FufBuffer<CR>
+  noremap <Leader>c :FufDirWithFullCwd<CR>
+  noremap <Leader>u :FufRenewCache<CR>
+  noremap <Leader>w :bdelete<CR>
+  noremap <F1> :FufHelp<CR>
+endif
+
+" Transparent editing of GnuPG-encrypted files
+" Based on a solution by Wouter Hanegraaff
+augroup encrypted
+  au!
+
+  " First make sure nothing is written to ~/.viminfo while editing
+  " an encrypted file.
+  autocmd BufReadPre,FileReadPre *.gpg,*.asc set viminfo=
+  " We don't want a swap file, as it writes unencrypted data to disk.
+  autocmd BufReadPre,FileReadPre *.gpg,*.asc set noswapfile
+  " Switch to binary mode to read the encrypted file.
+  autocmd BufReadPre,FileReadPre *.gpg set bin
+  autocmd BufReadPre,FileReadPre *.gpg,*.asc let ch_save = &ch|set ch=2
+  autocmd BufReadPost,FileReadPost *.gpg,*.asc 
+    \ '[,']!sh -c 'gpg --decrypt 2> /dev/null'
+  " Switch to normal mode for editing
+  autocmd BufReadPost,FileReadPost *.gpg set nobin
+  autocmd BufReadPost,FileReadPost *.gpg,*.asc let &ch = ch_save|unlet ch_save
+  autocmd BufReadPost,FileReadPost *.gpg,*.asc 
+    \ execute ":doautocmd BufReadPost " . expand("%:r")
+
+  " Convert all text to encrypted text before writing
+  autocmd BufWritePre,FileWritePre *.gpg set bin 
+  autocmd BufWritePre,FileWritePre *.gpg 
+    \ '[,']!sh -c 'gpg --default-recipient-self -e 2>/dev/null'
+  autocmd BufWritePre,FileWritePre *.asc 
+    \ '[,']!sh -c 'gpg --default-recipient-self -e -a 2>/dev/null'
+  " Undo the encryption so we are back in the normal text, directly
+  " after the file has been written.
+  autocmd BufWritePost,FileWritePost *.gpg,*.asc u
+augroup END
+
+

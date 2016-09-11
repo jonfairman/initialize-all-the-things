@@ -1,0 +1,2 @@
+#compdef pm
+_files -W ~/PuppetLabs/modules -/

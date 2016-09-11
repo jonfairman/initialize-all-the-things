@@ -1,0 +1,46 @@
+#!/bin/zsh
+#for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done
+zsh_cache=${HOME}/.zsh_cache
+[[ ! -d $zsh_cache ]] && mkdir -p $zsh_cache
+
+# shortcut to this dotfiles path is $ZSH
+export ZSH=$HOME/dotfiles
+
+# Oh-my-zsh theme selection
+ZSH_THEME="agnoster"
+
+# your project folder that we can `c [tab]` to
+export PROJECTS=~/cunningham
+
+# where my work things are at
+export WORK=~/PuppetLabs
+
+# source every .zsh file in this repo
+for config_file ($ZSH/**/*.zsh) source $config_file
+
+# use .localrc for SUPER SECRET CRAP that you don't
+# want in your public, versioned repo.
+if [[ -a ~/.localrc ]]
+then
+  source ~/.localrc
+fi
+
+# set the function path
+fpath=($ZSH/zsh/functions $fpath)
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit
+
+# load every completion after autocomplete loads
+for config_file ($ZSH/**/completion.sh) source $config_file
+
+#Google Apps Manager oauth file export
+export GAMOAUTH=~/Documents/GAM/oauth.txt
+
+#Make Homebrew happy
+export PATH="/usr/local/bin::$PATH"
+export RBENV_ROOT=/usr/local/var/rbenv
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
