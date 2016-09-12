@@ -39,8 +39,10 @@ brew cask install \
     daisydisk \
     data-rescue \
     dropbox \
+    etrecheck \
     fantastical \
     firefox \
+    finicky \
     flux \
     github-desktop \
     gitup \

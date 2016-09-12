@@ -1,10 +1,11 @@
 # Sets the macOS defaults to all the things I like ¯\_(ツ)_/¯
 #!/bin/bash
+#!/bin/sh
 
 set -x
 
 ################################################################################
-# General UI/UX																   #
+# General UI/UX                                                                #
 ################################################################################
 
 # Change default shell to zsh
@@ -134,8 +135,9 @@ defaults write com.apple.dashboard mcx-disabled -boolean true
 #defaults write com.apple.loginwindow TALLogoutSavesState -bool false
 #defaults write com.apple.loginwindow LoginwindowLaunchesRelaunchApps -bool false
 
+
 ################################################################################
-# Dock																		   #
+# Dock                                                                         #
 ################################################################################
 
 # Automatically hide and show the Dock and make it pop up immediately
@@ -151,8 +153,9 @@ defaults write com.apple.dock showhidden -bool true
 # Don’t animate opening applications from the Dock
 #defaults write com.apple.dock launchanim -bool false
 
+
 ################################################################################
-# Finder																	   #
+# Finder                                                                       #
 ################################################################################
 
 # Show the ~/Library folder
@@ -194,8 +197,9 @@ defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}"
 # Disable window animations and Get Info animations in Finder
 #defaults write com.apple.finder DisableAllAnimations -bool true
 
+
 ################################################################################
-# Desktop																	   #
+# Desktop                                                                      #
 ################################################################################
 
 # Change desktop background, not currently working
@@ -209,15 +213,17 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 # Enable snap-to-grid for desktop icons
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
+
 ################################################################################
-# Screenshots																   #
+# Screenshots                                                                  #
 ################################################################################
 
 # Disable shadow in screenshots
 defaults write com.apple.screencapture disable-shadow -bool true
 
+
 ################################################################################
-# Trackpad, mouse, keyboard, Bluetooth accessories, and input				   #
+# Trackpad, mouse, keyboard, Bluetooth accessories, and input                  #
 ################################################################################
 
 # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
@@ -233,8 +239,74 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 # Disable auto-correct
 #defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
+
 ################################################################################
-# Safari																	   #
+# Keyboard Shortcuts                                                           #
+################################################################################
+
+function addCustomMenuEntryIfNeeded
+{
+    if [[ $# == 0 || $# > 1 ]]; then
+        echo "usage: addCustomMenuEntryIfNeeded com.company.appname"
+        return 1
+    else
+        local contents=`defaults read com.apple.universalaccess "com.apple.custommenu.apps"`
+        local grepResults=`echo $contents | grep $1`
+        if [[ -z $grepResults ]]; then
+            # does not contain app
+            defaults write com.apple.universalaccess "com.apple.custommenu.apps" -array-add "$1"
+        else
+            # contains app already, so do nothing
+        fi
+    fi
+}
+
+function fixKeyboardShortcuts
+{
+    local COMMAND_KEY_SYMBOL="@"
+    local CONTROL_KEY_SYMBOL="^"
+    local OPTION_KEY_SYMBOL="~"
+    local SHIFT_KEY_SYMBOL="$"
+    local TAB_KEY_SYMBOL="\\U21e5"
+
+    # Finder
+    # Show Package Contents: Command-Shift-O
+    defaults write com.apple.finder NSUserKeyEquivalents "{ 'Show Package Contents' = '${COMMAND_KEY_SYMBOL}${SHIFT_KEY_SYMBOL}O'; }"
+    addCustomMenuEntryIfNeeded "com.apple.finder"
+
+    # Terminal
+    # Select Next Tab: Control-Tab
+    # Select Previous Tab: Control-Shift-Tab
+    defaults write com.apple.Terminal NSUserKeyEquivalents "{
+        'Select Next Tab' = '${CONTROL_KEY_SYMBOL}${TAB_KEY_SYMBOL}';
+        'Select Previous Tab' = '${CONTROL_KEY_SYMBOL}${SHIFT_KEY_SYMBOL}${TAB_KEY_SYMBOL}';
+    }"
+    addCustomMenuEntryIfNeeded "com.apple.Terminal"
+
+    # OmniGraffle
+    # Fit in Window: Command-0
+    # Grid Lines: Option-Command-G
+    defaults write com.omnigroup.OmniGraffle6 NSUserKeyEquivalents "{
+        'Fit in Window' = '${COMMAND_KEY_SYMBOL}0';
+        'Grid Lines' = '${OPTION_KEY_SYMBOL}${COMMAND_KEY_SYMBOL}G';
+    }"
+    addCustomMenuEntryIfNeeded "com.omnigroup.OmniGraffle6"
+
+    # Restart cfprefsd and Finder for changes to take effect.
+    # You may also have to restart any apps that were running
+    # when you changed their keyboard shortcuts. There is some
+    # amount of voodoo as to what you do or do not have to
+    # restart, and when.
+    killall cfprefsd
+    killall Finder
+}
+
+# Run the function
+fixKeyboardShortcuts
+
+
+################################################################################
+# Safari                                                                       #
 ################################################################################
 
 # Enable Safari’s debug menu
@@ -256,22 +328,25 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 # Remove useless icons from Safari’s bookmarks bar
 #defaults write com.apple.Safari ProxiesInBookmarksBar "()"
 
+
 ################################################################################
-# iTunes																	   #
+# iTunes                                                                       #
 ################################################################################
 
 # Make ⌘ + F focus the search input in iTunes
 defaults write com.apple.iTunes NSUserKeyEquivalents -dict-add "Target Search Field" "@F"
 
+
 ################################################################################
-# Photos																	   #
+# Photos                                                                       #
 ################################################################################
 
 # Prevent Photos from opening automatically when devices are plugged in
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
+
 ################################################################################
-# Google Chrome									                         	   #
+# Google Chrome                                                                #
 ################################################################################
 
 # Use the system-native print preview dialog
@@ -281,6 +356,7 @@ defaults write com.google.Chrome.canary DisablePrintPreview -bool true
 # Expand the print dialog by default
 defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
+
 
 ################################################################################
 # Kill affected applications                                                   #
