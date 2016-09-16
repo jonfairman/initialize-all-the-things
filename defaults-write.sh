@@ -218,6 +218,9 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 # Screenshots                                                                  #
 ################################################################################
 
+# Change screenshot save location
+defaults write com.apple.screencapture location ~/Dropbox/Downloads
+
 # Disable shadow in screenshots
 defaults write com.apple.screencapture disable-shadow -bool true
 
@@ -244,65 +247,80 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 # Keyboard Shortcuts                                                           #
 ################################################################################
 
-function addCustomMenuEntryIfNeeded
-{
-    if [[ $# == 0 || $# > 1 ]]; then
-        echo "usage: addCustomMenuEntryIfNeeded com.company.appname"
-        return 1
-    else
-        local contents=`defaults read com.apple.universalaccess "com.apple.custommenu.apps"`
-        local grepResults=`echo $contents | grep $1`
-        if [[ -z $grepResults ]]; then
-            # does not contain app
-            defaults write com.apple.universalaccess "com.apple.custommenu.apps" -array-add "$1"
-        else
-            # contains app already, so do nothing
-        fi
-    fi
-}
-
-function fixKeyboardShortcuts
-{
-    local COMMAND_KEY_SYMBOL="@"
-    local CONTROL_KEY_SYMBOL="^"
-    local OPTION_KEY_SYMBOL="~"
-    local SHIFT_KEY_SYMBOL="$"
-    local TAB_KEY_SYMBOL="\\U21e5"
-
-    # Finder
-    # Show Package Contents: Command-Shift-O
-    defaults write com.apple.finder NSUserKeyEquivalents "{ 'Show Package Contents' = '${COMMAND_KEY_SYMBOL}${SHIFT_KEY_SYMBOL}O'; }"
-    addCustomMenuEntryIfNeeded "com.apple.finder"
-
-    # Terminal
-    # Select Next Tab: Control-Tab
-    # Select Previous Tab: Control-Shift-Tab
-    defaults write com.apple.Terminal NSUserKeyEquivalents "{
-        'Select Next Tab' = '${CONTROL_KEY_SYMBOL}${TAB_KEY_SYMBOL}';
-        'Select Previous Tab' = '${CONTROL_KEY_SYMBOL}${SHIFT_KEY_SYMBOL}${TAB_KEY_SYMBOL}';
-    }"
-    addCustomMenuEntryIfNeeded "com.apple.Terminal"
-
-    # OmniGraffle
-    # Fit in Window: Command-0
-    # Grid Lines: Option-Command-G
-    defaults write com.omnigroup.OmniGraffle6 NSUserKeyEquivalents "{
-        'Fit in Window' = '${COMMAND_KEY_SYMBOL}0';
-        'Grid Lines' = '${OPTION_KEY_SYMBOL}${COMMAND_KEY_SYMBOL}G';
-    }"
-    addCustomMenuEntryIfNeeded "com.omnigroup.OmniGraffle6"
-
-    # Restart cfprefsd and Finder for changes to take effect.
-    # You may also have to restart any apps that were running
-    # when you changed their keyboard shortcuts. There is some
-    # amount of voodoo as to what you do or do not have to
-    # restart, and when.
-    killall cfprefsd
-    killall Finder
-}
-
-# Run the function
-fixKeyboardShortcuts
+# Keep these in a separate script or integrate them?
+# function addCustomMenuEntryIfNeeded
+# {
+#     if [[ $# == 0 || $# > 1 ]]; then
+#         echo "usage: addCustomMenuEntryIfNeeded com.company.appname"
+#         return 1
+#     else
+#         local contents=`defaults read com.apple.universalaccess "com.apple.custommenu.apps"`
+#         local grepResults=`echo $contents | grep $1`
+#         if [[ -z $grepResults ]]; then
+#             # does not contain app
+#             defaults write com.apple.universalaccess "com.apple.custommenu.apps" -array-add "$1"
+#         else
+#             # contains app already, so do nothing
+#             echo ""
+#         fi
+#     fi
+# }
+#
+# function fixKeyboardShortcuts
+# {
+#     local COMMAND="@"
+#     local SHIFT="$"
+#     local OPTION="~"
+#     local CONTROL="^"
+#     local TAB="\\U21e5"
+#     local UP="\\Uf700"
+#     local DOWN="\\Uf701"
+#     local LEFT="\\Uf702"
+#     local RIGHT="\\Uf703"
+#
+#     # Global
+#     # Save as PDF... : Command-P
+#     # Hide Finder: Command-Shift-Option-Command-G
+#     defaults write -g NSUserKeyEquivalents "{
+#         'Save as PDF...' = '${COMMAND}P';
+#         'Hide Finder' = '${COMMAND}${SHIFT}${OPTION}${CONTROL}G';
+#     }"
+#
+#     # Finder
+#     # Show Package Contents: Command-Shift-O
+#     defaults write com.apple.finder NSUserKeyEquivalents "{ 'Show Package Contents' = '${COMMAND}${SHIFT}O'; }"
+#     addCustomMenuEntryIfNeeded "com.apple.finder"
+#
+#     # PDFpenPro
+#     # OCR Document...: Command-Shift-O
+#     defaults write com.smileonmymac.PDFpenPro NSUserKeyEquivalents "{ 'OCR Document...' = '${COMMAND}${SHIFT}O'; }"
+#     addCustomMenuEntryIfNeeded "com.smileonmymac.PDFpenPro"
+#
+#     # Things
+#     # As Completed: Right arrow
+#     defaults write com.culturedcode.things NSUserKeyEquivalents "{ 'As Completed' = '${RIGHT}'; }"
+#     addCustomMenuEntryIfNeeded "com.culturedcode.things"
+#
+#     # # OmniGraffle
+#     # # Fit in Window: Command-0
+#     # # Grid Lines: Option-Command-G
+#     # defaults write com.omnigroup.OmniGraffle6 NSUserKeyEquivalents "{
+#     #     'Fit in Window' = '${COMMAND}0';
+#     #     'Grid Lines' = '${OPTION}${COMMAND}G';
+#     # }"
+#     # addCustomMenuEntryIfNeeded "com.omnigroup.OmniGraffle6"
+#
+#     # Restart cfprefsd and Finder for changes to take effect.
+#     # You may also have to restart any apps that were running
+#     # when you changed their keyboard shortcuts. There is some
+#     # amount of voodoo as to what you do or do not have to
+#     # restart, and when.
+#     killall cfprefsd
+#     killall Finder
+# }
+#
+# # Run the function
+# fixKeyboardShortcuts
 
 
 ################################################################################

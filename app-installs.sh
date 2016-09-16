@@ -62,7 +62,6 @@ brew cask install \
     logitech-unifying \
     macid \
     mactracker \
-    macvim \
     markdown-service-tools \
     moom \
     netspot \
@@ -142,6 +141,7 @@ brew cleanup
 # blackmagic converters
 # lilyview
 # microsoft office
+# pearl
 # p-touch editor
 # pdfpenpro
 # photomatix pro 5
