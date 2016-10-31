@@ -58,6 +58,7 @@ brew cask install \
     itunes-volume-control \
     karabiner \
     knox \
+    linein \
     logitech-control-center \
     logitech-unifying \
     macid \
@@ -76,6 +77,7 @@ brew cask install \
     quicklook-csv \
     quicklook-json \
     screens-connect \
+    skitch \
     slack \
     spotify \
     steam \
@@ -87,6 +89,12 @@ brew cask install \
 # Cleans up install files
 # ------------------------------------------------------------------------------
 brew cleanup
+
+# Install Ruby gems
+# ------------------------------------------------------------------------------
+sudo gem install \
+    net-ping \
+    rest-client
 
 # Mac App Store Installs ('mas' doesn't currently work well and therefore these must be manually downloaded
 # ------------------------------------------------------------------------------

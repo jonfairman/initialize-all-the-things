@@ -43,6 +43,11 @@ function fixKeyboardShortcuts
     defaults write com.apple.finder NSUserKeyEquivalents "{ 'Show Package Contents' = '${COMMAND}${SHIFT}O'; }"
     addCustomMenuEntryIfNeeded "com.apple.finder"
 
+    # iTerm
+    # Toggle Full Screen: Command-Control-F
+    defaults write com.googlecode.iterm2 NSUserKeyEquivalents "{ 'Toggle Full Screen' = '${COMMAND}${CONTROL}F'; }"
+    addCustomMenuEntryIfNeeded "com.googlecode.iterm2"
+
     # PDFpenPro
     # OCR Document...: Command-Shift-O
     defaults write com.smileonmymac.PDFpenPro NSUserKeyEquivalents "{ 'OCR Document...' = '${COMMAND}${SHIFT}O'; }"
