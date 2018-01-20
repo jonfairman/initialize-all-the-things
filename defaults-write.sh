@@ -21,7 +21,7 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.serve
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
 # Show remaining battery time; hide percentage
-defaults write com.apple.menuextra.battery ShowPercent -string "NO"
+defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 defaults write com.apple.menuextra.battery ShowTime -string "NO"
 
 # Show scrollbars when scrolling
@@ -148,7 +148,7 @@ defaults write com.apple.Dock autohide-delay -float 0
 defaults write com.apple.dock showhidden -bool true
 
 # Show indicator lights for open applications in the Dock
-#defaults write com.apple.dock show-process-indicators -bool true
+defaults write com.apple.dock show-process-indicators -bool true
 
 # Don’t animate opening applications from the Dock
 #defaults write com.apple.dock launchanim -bool false

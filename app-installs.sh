@@ -164,12 +164,15 @@ echo "Downloading iTerm colors"
 curl https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Solarized%20Dark%20Higher%20Contrast.itermcolors > ~/Downloads/Solarized-Dark-Higher-Contrast.itermcolors
 open ~/Downloads/Solarized-Dark-Higher-Contrast.itermcolors -a iTerm.app
 
-# Download Inconsolata-dz font for iTerm
+# Download SF Mono Medium font for iTerm
 # ------------------------------------------------------------------------------
-echo "Downloading iTerm font"
-curl http://media.nodnod.net/Inconsolata-dz.otf.zip > ~/Downloads/Inconsolata-dz.otf.zip
-open ~/Downloads/Inconsolata-dz.otf.zip
-open ~/Downloads/Inconsolata-dz.otf
+#echo "Downloading iTerm font"
+#curl http://media.nodnod.net/Inconsolata-dz.otf.zip > ~/Downloads/Inconsolata-dz.otf.zip
+#open ~/Downloads/Inconsolata-dz.otf.zip
+#open ~/Downloads/Inconsolata-dz.otf
+
+echo "Installing SF Mono font"
+cp /Applications/Utilities/Terminal.app/Contents/Resources/Fonts/*.otf ~/Library/Fonts/
 
 # Configure the dock
 # ------------------------------------------------------------------------------
@@ -178,16 +181,19 @@ dockutil --remove all
 dockutil --add /Applications/Airmail\ 3.app
 dockutil --add /Applications/Things.app
 dockutil --add /Applications/Safari.app
-dockutil --add /Applications/iTunes.app
-dockutil --add /Applications/Pocket.app
-dockutil --add /Applications/Tweetbot.app
+dockutil --add /Applications/Google\ Chrome.app
 dockutil --add /Applications/Messages.app
 dockutil --add /Applications/HipChat.app
-dockutil --add /Applications/Atom.app
-dockutil --add /Applications/iTerm.app
-dockutil --add /Applications/Photos.app
+dockutil --add /Applications/iTunes.app
+dockutil --add /Applications/Bear.app
+dockutil --add /Applications/Pocket.app
 dockutil --add /Applications/Preview.app
+dockutil --add /Applications/Photos.app
+dockutil --add /Applications/Adobe/Adobe\ Lightroom\ Classic\ CC/Adobe\ Lightroom\ Classic\ CC.app
+dockutil --add /Applications/iTerm.app
+dockutil --add /Applications/Atom.app
 dockutil --add /Applications/1Password\ 6.app
 dockutil --add /Applications/App\ Store.app
 dockutil --add /Applications/System\ Preferences.app
+dockutil --add '~/Dropbox/Apps/Rocket/GIF' --view grid --display stack --sort name
 dockutil --add '~/Dropbox/Jon/Downloads' --view fan --display stack --sort dateadded
